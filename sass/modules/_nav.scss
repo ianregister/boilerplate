@@ -1,0 +1,121 @@
+/* ==========================================================================
+   Main nav styling
+   ========================================================================== */
+
+nav {
+
+	@include miso(regular,20px,20px,$grey);
+	
+	ul li {
+		display: inline;
+		position: relative;
+		margin: 0 20px 0 0;
+	}
+
+	a.active {
+		border-bottom: 1px solid $grey;
+		padding-bottom: 2px;
+	}
+}
+
+
+/* ==========================================================================
+   Sub menu - CSS only, Dropit plugin used for touch devices
+   ========================================================================== */
+
+ul.menu ul {
+    display: none;
+	@include titillium(light,13px,inherit,$light-grey);
+	letter-spacing: normal;
+	text-transform: none;
+	background-color: $light-grey;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    min-width: 140px;
+}
+
+// Submenu dropdown styling
+ul.menu ul li {
+    line-height:1em;
+    padding: 0;
+	margin: 0;
+} 
+
+ul.menu ul li a {
+    display: block;
+    line-height:2.4em;
+    color: $medium-grey;
+    color: $grey;
+    padding: 0 0 0 1.2em;
+	margin: 0;
+} 
+
+// Balance out the padding at very top and bottom
+ul.menu ul li:first-child a { padding-top: 0.6em;} 
+ul.menu ul li:last-child a { padding-bottom: 0.6em; } 
+
+// Active 
+ul.menu ul li a.active {
+	border-bottom: none;
+	color: $grey;
+} 
+
+
+// Show the submenu on hover!
+ul.menu ul a:hover {
+    color: $grey;
+}
+
+
+// Display on hover
+ul.menu > li:hover ul { display: block; }
+
+
+/* ==========================================================================
+   Breadcrumb
+   ========================================================================== */
+
+
+
+#breadcrumb {
+	ul li {
+		@include titillium(light,13px,140%,$light-grey);
+		position: relative;
+		display: inline;
+	}
+	
+	a {
+		color: $medium-grey;
+	}
+	
+	li:before {
+		content: '>';
+		margin-right: 4px;
+	}
+	
+	li:first-child:before {
+		content: none;
+		margin-right: 0px;
+	}
+}
+
+
+
+/* ==========================================================================
+   Dropit styling
+   ========================================================================== */
+
+/* Dropit core */
+.dropit {
+    list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.dropit .dropit-trigger { position: relative; }
+/* .dropit .dropit-submenu { */
+
+/* .dropit .dropit-open .dropit-submenu { display: block; } */

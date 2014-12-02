@@ -1,0 +1,14 @@
+# www.robotstxt.org/
+# www.google.com/support/webmasters/bin/answer.py?hl=en&answer=156449
+
+# Set to not allow any bots for development server
+User-agent: *
+Disallow: /
+
+# Blackhole to block bad bots: http://perishablepress.com/press/2010/07/14/blackhole-bad-bots/
+User-agent: *
+Disallow: /*/blackhole/*
+
+#Live, Baby, Live
+#User-agent: *
+#Allow: /

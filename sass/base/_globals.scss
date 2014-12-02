@@ -1,0 +1,145 @@
+/* Import fonts
+----------------------------------------------------------------------------------------------------*/
+
+@font-face {font-family: 'MisoRegular';src: url('../fonts/miso-regular.eot');src:url('../fonts/miso-regular.eot?#iefix') format('embedded-opentype'),url('../fonts/miso-regular.woff') format('woff'),url('../fonts/miso-regular.ttf') format('truetype');}
+
+@font-face {font-family: 'MisoBold';src: url('../fonts/miso-bold.eot');src: url('../fonts/miso-bold.eot?#iefix') format('embedded-opentype'),url('../fonts/miso-bold.woff') format('woff'),url('../fonts/miso-bold.ttf') format('truetype');}
+ 
+  @font-face {font-family: 'MisoLight';src: url('webfonts/miso-light.eot');src: url('webfonts/miso-light.eot?#iefix') format('embedded-opentype'),url('../fonts/miso-light.woff') format('woff'),url('../fonts/miso-light.ttf') format('truetype');}
+
+@font-face {font-family: 'TitilliumLight';src: url('../fonts/titillium-light.eot');src: url('../fonts/titillium-light.eot?#iefix') format('embedded-opentype'),url('../fonts/titillium-light.woff') format('woff'),url('../fonts/titillium-light.ttf') format('truetype');}
+
+@font-face {font-family: 'TitilliumRegular';src: url('../fonts/titillium-regular.eot');src: url('../fonts/titillium-regular.eot?#iefix') format('embedded-opentype'),url('../fonts/titillium-regular.woff') format('woff'),url('../fonts/titillium-regular.ttf') format('truetype');}
+
+@font-face {font-family: 'TitilliumThin';src: url('../fonts/titillium-thin.eot');src: url('../fonts/titillium-thin.eot?#iefix') format('embedded-opentype'),url('../fonts/titillium-thin.woff') format('woff'),url('../fonts/titillium-thin.ttf') format('truetype');}
+
+@font-face {font-family: 'TitilliumThinItalic';src: url('../fonts/titillium-thinitalic.eot');src: url('../fonts/titillium-thinitalic.eot?#iefix') format('embedded-opentype'),url('../fonts/titillium-thinitalic.woff') format('woff'),url('../fonts/titillium-thinitalic.ttf') format('truetype');}
+
+@font-face {font-family: 'DosisRegular';src: url('../fonts/dosis-regular.eot');src:url('../fonts/dosis-regular.eot?#iefix') format('embedded-opentype'),url('../fonts/dosis-regular.woff') format('woff'),url('../fonts/dosis-regular.ttf') format('truetype');}
+
+@font-face {font-family: 'DosisMedium';src: url('../fonts/miso-medium.eot');src: url('../fonts/miso-medium.eot?#iefix') format('embedded-opentype'),url('../fonts/miso-medium.woff') format('woff'),url('../fonts/miso-medium.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'DosisExtraLight';src: url('webfonts/dosis-extralight.eot');src: url('webfonts/dosis-extralight.eot?#iefix') format('embedded-opentype'),url('../fonts/dosis-extralight.woff') format('woff'),url('../fonts/dosis-extralight.ttf') format('truetype');}
+
+@mixin dosis($style, $size, $line-height, $colour) {
+	font: {
+		@if $style == light
+			{ family: 'DosisExtraLight'; }
+		@else if $style == medium
+			{ family: 'DosisMedium'; }
+		@else
+			{ family: 'DosisRegular'; }
+		size: $size;
+	}
+	color: $colour;
+	line-height: $line-height;
+	letter-spacing: 1px;
+}
+
+@mixin miso($style, $size, $line-height, $colour) {
+	font: {
+		@if $style == light
+			{ family: 'MisoLight'; }
+		@else if $style == bold
+			{ family: 'MisoBold'; }
+		@else
+			{ family: 'MisoRegular'; }
+		size: $size;
+	}
+	color: $colour;
+	line-height: $line-height;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+}
+
+@mixin titillium($style, $size, $line-height, $colour) {
+	font: {
+		@if $style == light
+			{ family: 'TitilliumLight','Lucida Grande', Helvetica, sans-serif; }
+		@else if $style == thin
+			{ family: 'TitilliumThin','Lucida Grande', Helvetica, sans-serif; }
+		@else if $style == thin-italic
+			{ family: 'TitilliumThinItalic','Lucida Grande', Helvetica, sans-serif; }
+		@else
+			{ family: 'TitilliumRegular','Lucida Grande', Helvetica, sans-serif; }
+		size: $size;
+	}
+	color: $colour;
+	line-height: $line-height;
+}
+
+
+
+
+
+/* Basic HTML
+----------------------------------------------------------------------------------------------------*/
+
+body, address {
+@include titillium(light,13px,140%,$medium-grey);
+}
+
+p strong {
+	@include titillium(regular,inherit,inherit,$grey);
+	font-weight: normal;
+}
+
+
+a { color: $grey; }
+a:active { color: inherit; }
+a:visited { color: $grey; }
+a:hover { color: $dark-grey; }
+a:focus { outline: none; }
+
+a {
+	text-decoration: none;
+	@include transition (color 0.2s linear);
+}
+
+a.active {color: $grey}
+a.active:hover  {color: $light-grey}
+
+
+/* hr { display: block; height: 1px; border: 0; border-top: 1px solid #ccc; margin: 0.5em 0 0.5em 0; padding: 0; } */
+hr { display: block; height: 1px; background-color: #ccc; margin: 0; padding: 0;border: none; }
+
+small {font-size: 80%}
+
+/* Images
+----------------------------------------------------------------------------------------------------*/
+
+img {
+/*
+  opacity: 0;
+  transition: opacity .3s ease-in;
+*/
+	max-width:100%;
+	height: auto;
+}
+
+
+
+/* Headings
+----------------------------------------------------------------------------------------------------*/
+
+h1, h2, h3, h4, h5, h6 {font-size: inherit; font-weight: normal;line-height: 100%; text-rendering: optimizelegibility;}
+
+h1 {
+	text-transform: uppercase;
+	@include miso(regular,24px,24px,$grey);
+}
+
+h2 {
+}
+
+
+
+/* Lists
+----------------------------------------------------------------------------------------------------*/
+
+ul, ol {margin-left: 0em; list-style-position: inside;}
+ol {list-style-type: decimal; }
+li {list-style-type: none; }
+
+

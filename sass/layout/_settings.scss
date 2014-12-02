@@ -1,0 +1,28 @@
+/* 
+ * Grid (generally columns) based on 960.gs
+ *************************************************/
+
+@import "neat/neat-helpers"; 
+
+body {min-width: 300px}
+
+// Override the grid settings
+$column: 50px;
+$gutter: 40px;
+$grid-columns: 12;
+$max-width: 1020px;
+//$max-width: 960px;
+
+// Define your breakpoints
+$mobile: new-breakpoint(max-width 400px 6);
+/* $faux-mobile: new-breakpoint(min-width 321px max-width 400px 2); */
+
+$portrait: new-breakpoint(max-width 768px max-height 1024px 6);
+$landscape: new-breakpoint(max-width 1024px max-height 768px 6);
+
+//$laptop: new-breakpoint(max-height 700px 4);
+$laptop: new-breakpoint(max-width 1280px 12);
+$desktop: new-breakpoint(min-width 1281px 12);
+
+// View grid for debugging
+$visual_grid: false;

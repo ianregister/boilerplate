@@ -1,0 +1,124 @@
+/*
+ * Set up content structure and layout using 4 column 960px grid
+ ******************************************************/
+
+html, body {
+margin:0;
+padding:0;
+height:100%;
+}
+
+#site {
+	margin-bottom: 40px;
+
+	border: 30px solid #fff;
+
+	@include outer-container;
+
+	@include media($laptop) {
+		//max-width: 920px;
+	}
+
+	header {
+		margin: 0 0 40px 0;
+		
+		@include span-columns(12);
+		
+			  @include media($mobile) {
+			    @include span-columns(6);
+			  }
+		
+		#logo-and-nav {
+			@include span-columns(9 of 12);
+		}
+		
+		#logo{
+			margin: 30px 0 0 0;
+			@include fill-parent;
+			@include span-columns(9 of 9);
+		}//#logo
+
+		nav {
+			margin: 40px 0 0 0;
+			@include span-columns(9 of 9);
+		}//nav
+		
+		aside#address {
+			margin: 9px 0 0 0;
+			@include span-columns(3 of 12);
+		}
+	}//header
+	
+	#content {
+		margin-bottom: 40px;
+		@include span-columns(12);
+				@include media($mobile) {
+					@include span-columns(6);
+				}
+		
+		#main-content {
+			margin-bottom: 40px;
+			float: left;
+		}
+				
+		article.default {
+			@include span-columns ( 8 of 12 );
+		}
+		
+		article#loading.default {
+			@include span-columns ( 12 );
+		}
+		
+
+		#products-sidebar {
+			@include span-columns(3 of 12);
+		}
+		
+		#products-loop{		
+			@include span-columns(9 of 12);
+
+			.bike-loop {
+					@include span-columns(3 of 9);
+			}
+			
+			li:nth-child(3n).bike-loop {
+					margin-right: 0;
+			}
+		}
+
+		.column.four {
+			@include span-columns(4 of 12);
+		}
+
+		#brand-info {
+			@include span-columns(4);
+		}
+
+		.column.three {
+			@include span-columns(3 of 12);
+		}
+
+		.column.eight {
+			@include span-columns(8 of 12);
+		}
+		
+		#product-info {
+			@include span-columns(8);
+		}
+		
+/* 		#product-info:after {content: "\0020"; display: block; clear: both; visibility: hidden; line-height: 0; height: 0;} */
+
+
+
+
+		#suggested-products {									
+			.bike-loop {
+				@include span-columns(3 of 12);
+			}
+			margin-bottom: 24px;
+		}
+
+	}
+	
+}//site	
+

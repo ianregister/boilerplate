@@ -1,0 +1,14 @@
+
+#logo {
+	width: 100px;
+	height: 100px;
+	background-image: url(../images/graphics/logo.svg);
+	background-size: contain;
+	background-position: left center;
+	background-repeat: no-repeat;
+}
+
+.no-svg #logo {
+	background-image: url(../images/graphics/logo.png);
+}
+

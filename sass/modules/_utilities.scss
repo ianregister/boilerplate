@@ -1,0 +1,232 @@
+/* Utility and debug classes
+------------------------------------------------------ */
+
+/* For image replacement */
+.ir { display: block; border: 0; text-indent: -999em; overflow: hidden; background-color: transparent; background-repeat: no-repeat; text-align: left; direction: ltr; }
+.ir br { display: none; }
+
+/* Hide from both screenreaders and browsers: h5bp.com/u */
+.hidden { display: none !important; visibility: hidden; }
+
+/* Hide only visually, but have it available for screenreaders: h5bp.com/v */
+.visuallyhidden { border: 0; clip: rect(0 0 0 0); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; width: 1px; }
+
+/* Extends the .visuallyhidden class to allow the element to be focusable when navigated to via the keyboard: h5bp.com/p */
+.visuallyhidden.focusable:active, .visuallyhidden.focusable:focus { clip: auto; height: auto; margin: 0; overflow: visible; position: static; width: auto; }
+
+/* Hide visually and from screenreaders, but maintain layout */
+.invisible { visibility: hidden; }
+
+/* Set opacity to 100% */
+.opaque {
+	-webkit-opacity:1;
+	-moz-opacity:1;
+	-ms-opacity:1;
+    opacity:1;
+    }
+
+/* Set opacity to 0% */
+.opaque {
+	-webkit-opacity:0;
+	-moz-opacity:0;
+	-ms-opacity:0;
+    opacity:0;
+    }
+
+.centre , .center {text-align: center;}
+.centred, .centered {margin: 0 auto;} /* need to specify width in the html */
+
+/* Transparent background colours for debugging */
+.pink {background-color: rgba(255,0,255,0.5); }
+.blue {background-color: rgba(0,255,255,0.5); }
+.yellow {background-color: rgba(255,255,0,0.5); }
+.bluer {background-color: rgba(0,0,255,0.5); }
+.green {background-color: rgba(0,255,0,0.5); }
+.grey {background-color: rgba(180,180,180,0.5); }
+.ochre {background-color: rgba(200,54,54,0.5); }
+
+/* Space content vertically */
+.spacer10{height: 10px;}
+.spacer50{height: 50px;}
+.spacer100{height: 100px;}
+
+/* Oh, float we love you */
+.float {position: relative; display: inline;}
+.float.left{float: left}
+.float.right{float: right}
+
+/* Text styling */
+.bold {font-weight: bold;}
+.underline {text-decoration: underline;}
+.capitalise, .capitalize {text-transform:capitalize;}
+.uncapitalise, .uncapitalize {text-transform:lowercase;}
+.uppercase {text-transform:uppercase;}
+
+
+
+
+/* Fade in/out animations
+------------------------------------------------------ */
+
+/*
+ * Fade in
+ ************/
+
+/* make keyframes that tell the start state and the end state of our object */
+@-webkit-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@-moz-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+ 
+.fade-in {
+	-webkit-opacity: 0;
+	-moz-opacity: 0;
+	-ms-opacity: 0;
+    opacity:0;  /* make things invisible upon start */
+    -webkit-animation:fadeIn ease-in 1;  /* call our keyframe named fadeIn, use animattion ease-in and repeat it only 1 time */
+    -moz-animation:fadeIn ease-in 1;
+    -ms-animation:fadeIn ease-in 1;
+    animation:fadeIn ease-in 1;
+ 
+    -webkit-animation-fill-mode:forwards;  /* this makes sure that after animation is done we remain at the last keyframe value (opacity: 1)*/
+    -moz-animation-fill-mode:forwards;
+    -ms-animation-fill-mode:forwards;
+    animation-fill-mode:forwards;
+ 
+    -webkit-animation-duration:0.3s;
+    -moz-animation-duration:0.3s;
+    -ms-animation-duration:0.3s;
+    animation-duration:0.3s;
+}
+ 
+.fade-in.short {
+	-webkit-animation-delay: 0.3s;
+	-moz-animation-delay: 0.3s;
+	-ms-animation-delay: 0.3s;
+	animation-delay: 0.3s;
+	}
+
+.fade-in.long {
+	-webkit-animation-delay: 2s;
+	-moz-animation-delay: 2s;
+	-ms-animation-delay: 2s;
+	animation-delay: 2s;
+	}
+
+/* Thanks Modernizr! */
+.no-cssanimations .fade-in.short {
+	filter: alpha(opacity=100);
+	-webkit-opacity:1;
+	-moz-opacity:1;
+	-ms-opacity:1;
+    opacity:1;
+	}
+
+
+
+/*
+ * Fade out
+ ************/
+
+/* make keyframes that tell the start state and the end state of our object */
+@-webkit-keyframes fadeOut { from { opacity:1; } to { opacity:0; } }
+@-moz-keyframes fadeOut { from { opacity:1; } to { opacity:0; } }
+@keyframes fadeOut { from { opacity:1; } to { opacity:0; } }
+ 
+.fade-out {
+	-webkit-opacity:1;
+	-moz-opacity:1;
+	-ms-opacity:1;
+    opacity:1;  /* make things visible upon start */
+    -webkit-animation:fadeOut ease-in 0;  /* call our keyframe named fadeOut, use animattion ease-in and repeat it only 1 time */
+    -moz-animation:fadeOut ease-in 0;
+    -ms-animation:fadeOut ease-in 0;
+    animation:fadeOut ease-in 0;
+ 
+    -webkit-animation-fill-mode:forwards;  /* this makes sure that after animation is done we remain at the last keyframe value (opacity: 1)*/
+    -moz-animation-fill-mode:forwards;
+    -ms-animation-fill-mode:forwards;
+    animation-fill-mode:forwards;
+ 
+    -webkit-animation-duration:0.3s;
+    -moz-animation-duration:0.3s;
+    -ms-animation-duration:0.3s;
+    animation-duration:0.3s;
+	}
+ 
+.fade-out.short {
+	-webkit-animation-delay: 0.3s;
+	-moz-animation-delay: 0.3s;
+	-ms-animation-delay: 0.3s;
+	animation-delay: 0.3s;
+	}
+
+.fade-out.long {
+	-webkit-animation-delay: 2s;
+	-moz-animation-delay: 2s;
+	-ms-animation-delay: 2s;
+	animation-delay: 2s;
+	}
+
+/* Thanks Modernizr! */
+.no-cssanimations .fade-out, .ie8 .fade-out, .ie9 .fade-out {
+	filter: alpha(opacity=0);
+	opacity: 0;
+	-webkit-opacity: 0;
+	-moz-opacity: 0;
+	-ms-opacity: 0;
+	}
+
+
+
+
+/* Clear Floated Elements
+----------------------------------------------------------------------------------------------------*/
+
+/* http://sonspring.com/journal/clearing-floats */
+
+html body * span.clear,
+html body * div.clear,
+html body * li.clear,
+html body * dd.clear {
+	background: none;
+	border: 0;
+	clear: both;
+	display: block;
+	float: none;
+	font-size: 0;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	visibility: hidden;
+	width: 0;
+	height: 0;
+}
+
+/* http://perishablepress.com/press/2008/02/05/lessons-learned-concerning-the-clearfix-css-hack */
+
+.clearfix:after {
+	font-size: 0;
+	line-height: 0;
+	visibility: hidden;
+	width: 0;
+}
+
+.clearfix {
+	display: inline-block;
+}
+
+* html .clearfix {
+	height: 1%;
+}
+
+.clearfix {
+	display: block;
+}
+
+/* The Magnificent Clearfix: Updated to prevent margin-collapsing on child elements.
+   j.mp/bestclearfix */
+.clearfix:before, .clearfix:after { content: "\0020"; display: block; height: 0; overflow: hidden; }
+.clearfix:after { clear: both; }
+/* Fix clearfix: blueprintcss.lighthouseapp.com/projects/15318/tickets/5-extra-margin-padding-bottom-of-page */
+.clearfix { zoom: 1; }
