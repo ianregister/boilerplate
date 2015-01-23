@@ -29,7 +29,7 @@ ga('create','UA-XXXXXXXX-1');ga('send','pageview');
 </script>
 
 <?php if ( LOCAL ) : ?>
-<script async src='//<?php echo($_SERVER['HTTP_HOST']); ?>:3000/browser-sync/browser-sync-client.1.6.5.js'></script>
+<script async src='//<?php echo($_SERVER['HTTP_HOST']); ?>:3000/browser-sync/browser-sync-client.1.9.1.js'></script>
 <?php endif; ?>
 
 </body>

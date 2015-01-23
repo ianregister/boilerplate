@@ -6,9 +6,7 @@
  * @subpackage IR
  * @since The Big Bang 1.0
  */
-?>
 
-<?php 
 get_header();
 
 	// Don't get confused, this means check what yo setting in the Dashboard is for Reading

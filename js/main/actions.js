@@ -73,7 +73,7 @@ loadPageData:function ( page, template ) {
 			dataType : 'text',
 	        success:function ( response ) {
 	        	// Use our shiny new data
-				processPage( response );
+				processPage( page, response );
 				// Write to cache
 	            data.data( cachePage, response );
 	            // Lazy load images

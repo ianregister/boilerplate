@@ -8,21 +8,17 @@
  */
 
 
+/* ==========================================================================
+   Front end scripts
+   ========================================================================== */
+
 // Enqueue app and all the other scripts, prints the ajaxurl in footer
 // Note: Not using plugins that call built in jQuery
 
 function beer_scripts() {
 
-// Development:
-/*
-wp_enqueue_script( 'libraries', get_template_directory_uri() . '/js/app/libraries.min.js', null, 1.0, false );
-wp_enqueue_script( 'plugins', get_template_directory_uri() . '/js/app/plugins.min.js', array( 'libraries' ), 1.0, false );
-wp_enqueue_script( 'main', get_template_directory_uri() . '/js/app/main.min.js', array( 'plugins' ), 1.0, false );
-*/
-
-
 //Production:
-wp_enqueue_script( 'lab', get_template_directory_uri() . '/js/app/libs/loader.js', null, 2.0, false );
+wp_enqueue_script( 'lab', get_template_directory_uri() . '/js/libs/loader.js', null, 2.0, false );
 
 // This needs match the url : App.ajaxurl & nonce in the ajax function call
 // Change 'lab' to 'main' if enqueuing via the development method
@@ -37,8 +33,40 @@ wp_localize_script( 'lab', 'GinAjax', array(
 );
 
 }
-add_action('init','beer_scripts'); 
+add_action('wp_enqueue_scripts','beer_scripts'); 
 
+
+/* ==========================================================================
+   Admin scripts
+   ========================================================================== */
+
+function beer_admin_scripts() {
+
+wp_enqueue_style('beer-admin-style', get_template_directory_uri() . '/includes/dashboard.css', null, null, true);
+wp_enqueue_script('beer-admin-script', get_template_directory_uri() . '/includes/dashboard.js', null, null, true);
+
+// This needs match the url : App.ajaxurl & nonce in the ajax function call
+// 'dashboard' is a WP call
+wp_localize_script( 'beer-admin-script', 'BEER_Admin_Ajax', array(
+	// URL to wp-admin/admin-ajax.php to process the request
+	'ajaxurl'          => admin_url( 'admin-ajax.php' ),
+ 
+	// generate a nonce with a unique ID so it can be checked later when an AJAX request is sent
+	// Note: if needing to reuse (ie post multiple comments) then need to regenerate nonce
+	'BEER_Admin_Nonce' => wp_create_nonce( 'beer-nonce' )
+	//'UE_Admin_Nonce' => wp_create_nonce( 'beer-admin-nonce' )
+	)
+);
+
+}
+add_action('admin_enqueue_scripts','beer_admin_scripts'); 
+
+
+
+
+/* ==========================================================================
+   Functions to get content
+   ========================================================================== */
 
 // Get home page content
 function getHome(){
@@ -52,7 +80,7 @@ function getHome(){
 		}
 				
 		// Load up our 'ol home page
-		get_template_part('templates/home');
+		get_template_part( 'templates/home' );
 
 		// Time to go home for a beer
 		die;
@@ -60,6 +88,61 @@ function getHome(){
 
 add_action( 'wp_ajax_nopriv_get_home' , 'getHome' );
 add_action( 'wp_ajax_get_home' , 'getHome' );
+
+
+
+
+// Get single post content
+function getSingle(){
+	$nonce = $_REQUEST['WhiskeyNonce'];
+ 
+	// check to see if the submitted nonce matches with the
+	// generated nonce we created earlier
+	if ( ! wp_verify_nonce( $nonce, 'whiskey-nonce' ) ) {
+		get_template_part('templates/404');
+		die ();
+		}
+		
+		// Get our post type
+		$fragment = explode('/',$_REQUEST['fragment']);
+		$post_type = $fragment[0];
+		
+		// Load up our 'ol home page
+		get_template_part( 'templates/single/' . $post_type );
+
+		// Time to go home for a beer
+		die;
+ }
+
+add_action( 'wp_ajax_nopriv_get_single' , 'getSingle' );
+add_action( 'wp_ajax_get_single' , 'getSingle' );
+
+
+
+
+// Get single post content
+function getArchive(){
+	$nonce = $_REQUEST['WhiskeyNonce'];
+ 
+	// check to see if the submitted nonce matches with the
+	// generated nonce we created earlier
+	if ( ! wp_verify_nonce( $nonce, 'whiskey-nonce' ) ) {
+		get_template_part('templates/404');
+		die ();
+		}
+
+		// Determine what post_type archive we are
+		$archive = $_REQUEST['fragment'];
+				
+		// Load up our 'ol home page
+		get_template_part('templates/archive/' . $archive );
+		
+		// Time to go home for a beer
+		die;
+ }
+
+add_action( 'wp_ajax_nopriv_get_archive' , 'getArchive' );
+add_action( 'wp_ajax_get_archive' , 'getArchive' );
 
 
 
@@ -110,17 +193,75 @@ function getPage(){
 		//echo('busted punk');
 		die ();
 		}
+		
+		$page = $_REQUEST['page'];
 
-		// Load up our 'ol offer template
-		get_template_part('templates/page');
-
-
+		// Load up our contact page template
+		if ( $page === 'contact' ) get_template_part( 'templates/page/' . $page );
+		// Load up our 'ol default page template
+		else get_template_part( 'templates/page/default' );
+		
 		// Time to go home for a beer
 		die;
  }
 
 add_action( 'wp_ajax_nopriv_get_page' , 'getPage' );
 add_action( 'wp_ajax_get_page' , 'getPage' );
+
+
+
+
+// Get default site title
+function getSiteTitle(){
+	$nonce = $_REQUEST['WhiskeyNonce'];
+ 
+	// check to see if the submitted nonce matches with the
+	// generated nonce we created earlier
+	if ( ! wp_verify_nonce( $nonce, 'whiskey-nonce' ) ) {
+		get_template_part('templates/404');
+		//echo('busted punk');
+		die ();
+		}
+
+		// Load up our 'ol offer template
+		echo get_bloginfo( 'name', 'display' );
+		//echo 'beer';
+
+		// Time to go home for a beer
+		die;
+ }
+
+add_action( 'wp_ajax_nopriv_get_site_title' , 'getSiteTitle' );
+add_action( 'wp_ajax_get_site_title' , 'getSiteTitle' );
+
+
+
+
+// Get default site tagline
+function getTagline(){
+	$nonce = $_REQUEST['WhiskeyNonce'];
+ 
+	// check to see if the submitted nonce matches with the
+	// generated nonce we created earlier
+	if ( ! wp_verify_nonce( $nonce, 'whiskey-nonce' ) ) {
+		get_template_part('templates/404');
+		//echo('busted punk');
+		die ();
+		}
+
+		// Load up our 'ol offer template
+		echo get_bloginfo( 'description', 'display' );
+
+		// Time to go home for a beer
+		die;
+ }
+
+add_action( 'wp_ajax_nopriv_get_tagline' , 'getTagline' );
+add_action( 'wp_ajax_get_tagline' , 'getTagline' );
+
+
+
+
 
 
 

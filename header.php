@@ -45,21 +45,20 @@ Made by Ian Register > ianregister.com
 	<![endif]-->
 	
 	
-	<!-- These guys will save our souls -->
-	<script src="<?php echo get_template_directory_uri(); ?>/js/app/libs/modernizr.min.js"></script>
-	
 	<?php wp_head(); ?>
 
 	<script>$LAB
-		.script('<?php echo get_template_directory_uri(); ?>/js/app/libraries.min.js').wait()
-		.script('<?php echo get_template_directory_uri(); ?>/js/app/structure.min.js').wait()
-		.script('<?php echo get_template_directory_uri(); ?>/js/app/plugins.min.js').wait()
-		.script('<?php echo get_template_directory_uri(); ?>/js/app/main.min.js')
+		.script('<?php echo get_template_directory_uri(); ?>/js/libraries.min.js').wait()
+		.script('<?php echo get_template_directory_uri(); ?>/js/plugins.min.js').wait()
+		.script('<?php echo get_template_directory_uri(); ?>/js/main.min.js')
 	</script>
+	
+	<!-- These guys will save our souls -->
+	<script src="<?php echo get_template_directory_uri(); ?>/js/libs/modernizr.min.js"></script>
 	
 	<!-- Nope, this fellah for the html5shiv needs be here else IE will get horribly confused (no CDN coz who cares about IE performance) -->
 	<!--[if lt IE 9]>
-	<script src="<?php echo get_template_directory_uri(); ?>/js/app/libs/html5.js"></script>
+	<script src="<?php echo get_template_directory_uri(); ?>/js/libs/html5.js"></script>
 	<![endif]-->
 	
 	<title><?php wp_title(); ?></title>

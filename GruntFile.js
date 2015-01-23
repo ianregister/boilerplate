@@ -7,14 +7,14 @@ module.exports = function(grunt) {
 			},
 	        config: {
 				files: {
-			        'js/structure.min.js': ['js/libs/underscore.js',
-			        							'js/libs/backbone.js'],
-			        'js/libraries.min.js': ['js/libs/jquery-1.11.1.min.js',
-			        							'js/libs/jquery.migrate.1.2.1.min.js'],
+			        'js/libraries.min.js': ['js/libs/jquery-1.11.2.min.js',
+			        						'js/libs/jquery.migrate.1.2.1.min.js',
+			        						'js/libs/underscore.1.7.0.min.js',
+			        						'js/libs/backbone.1.1.2.min.js'],
 			        'js/plugins.min.js': [	'js/plugins/jquery.flexslider.2.2.2.js',
-			        							'js/plugins/jquery.unveil.min.js',
-			        							//'js/plugins/jquery.dropit.min.js',
-			        							'js/plugins/jquery.validate.min.js'	],
+			        						'js/plugins/jquery.unveil.min.js',
+			        						//'js/plugins/jquery.dropit.min.js',
+			        						'js/plugins/jquery.validate.min.js'	],
 				}
 	        },
 	        main: {
@@ -25,8 +25,15 @@ module.exports = function(grunt) {
 		},
 		uglify: {
 			options: {
+				//sourceMap : true,
+				//sourceMapName : 'main.map',
 				mangle: {
 					except: ['jQuery', 'Backbone'],
+				}
+			},
+			plugins: {
+				files: {
+					'js/plugins.min.js': ['js/plugins.min.js'],
 				}
 			},
 			js: {

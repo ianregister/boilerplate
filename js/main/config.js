@@ -10,8 +10,8 @@ var rootDir  = $("script[src]").next().attr("src").split('?')[0].split('/').slic
 // Set root (come on make this programmatic hey)
 var stateURL = '/';
 var themeDir = 'wp-content/themes/beer/';
-var siteName = 'Beer';
-var siteTagline = '';
+var siteName = siteTitle();
+var siteTagline = siteTagline();
 var title = $('title');
 var body = $('body');
 

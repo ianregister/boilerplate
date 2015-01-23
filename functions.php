@@ -183,7 +183,7 @@ function beer_admin_logo() {
    echo '<style type="text/css">
          #wp-admin-bar-wp-logo > .ab-item .ab-icon { background-image: url('.get_bloginfo('template_directory').'/images/graphics/logo.svg) !important; height:20px!important; background-size: 20px 20px!important; background-position:0 -1px; }
          #wpadminbar.nojs #wp-admin-bar-wp-logo:hover > .ab-item .ab-icon,
-		 #wpadminbar #wp-admin-bar-wp-logo.hover > .ab-item .ab-icon {background-image: url('.get_bloginfo('siteurl').'/wp-includes/images/admin-bar-sprite.png?d=20111130);background-position: 0 -104px;}
+		 #wpadminbar #wp-admin-bar-wp-logo.hover > .ab-item .ab-icon {background-image: url('.get_bloginfo('url').'/wp-includes/images/admin-bar-sprite.png?d=20111130);background-position: 0 -104px;}
          </style>';
 }
 add_action('admin_head', 'beer_admin_logo');
@@ -571,6 +571,29 @@ function beer_custom_dashboard() {
     #toplevel_page_wl-general-settings {display:none}
   </style>';
 }
+
+
+
+/* ==========================================================================
+   Add Admin bar clear cache
+   ========================================================================== */
+
+//add_action( 'admin_bar_menu', 'clear_opcache', 999 );
+
+function clear_opcache( $wp_admin_bar ) {
+	$args = array(
+		'id'    => 'clear_cache',
+		'title' => 'Clear Cache',
+		'href'  => '?page=opcache&action=reset'
+	);
+	$wp_admin_bar->add_node( $args );
+}
+
+// If action = reset and check nonce then:
+function clear_cache() {
+	opcache_reset();
+}
+
 
 
 ?>

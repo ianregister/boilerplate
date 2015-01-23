@@ -459,6 +459,70 @@ function processForm(data) {
 }
 
 
+
+/* ==========================================================================
+   Get site title
+   ========================================================================== */
+
+function siteTitle() {
+
+	var temp = null;
+
+	$.ajax({
+        async : false,
+		type : 'GET',
+		url : GinAjax.ajaxurl, // just ajaxurl is ok, WP default
+		data : {
+			action : 'get_site_title',
+			WhiskeyNonce : GinAjax.WhiskeyNonce
+		},
+		dataType : 'text',
+	    success:function ( response ) {
+	    	temp = response;
+	    },
+	    error:function () {
+	        //Missing data, load 404 page or display error message.
+	    }
+	});
+	
+	return temp;
+
+}
+
+
+
+/* ==========================================================================
+   Get site tagline
+   ========================================================================== */
+
+function siteTagline() {
+
+	var temp = null;
+
+	$.ajax({
+        async : false,
+		type : 'GET',
+		url : GinAjax.ajaxurl,
+		data : {
+			action : 'get_tagline',
+			WhiskeyNonce : GinAjax.WhiskeyNonce
+		},
+		dataType : 'text',
+	    success:function ( response ) {
+	    	temp = response;
+	    },
+	    error:function () {
+	        //Missing data, load 404 page or display error message.
+	    }
+	});
+
+	return temp;
+
+}
+
+
+
+
 /* ==========================================================================
    Load Google Maps better than iFrame baloney
    ========================================================================== */
