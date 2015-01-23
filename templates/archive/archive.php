@@ -2,7 +2,7 @@
 /**
  * The default archive content template file.
  *
- * @package Upside Elevate
+ * @package Beer
  * @subpackage Upside Elevate
  * @since The Big Bang 1.0
  */

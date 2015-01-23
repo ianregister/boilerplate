@@ -7,6 +7,9 @@
  * @since The Big Bang 1.0
  */
 
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 get_header();
 
 if ( have_posts() ) :

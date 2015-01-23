@@ -5,13 +5,8 @@ if (isset($_SERVER['HTTP_USER_AGENT']) && (strpos($_SERVER['HTTP_USER_AGENT'], '
 	header('X-UA-Compatible: IE=edge,chrome=1'); 
 ?><!doctype html>
 
-<!--
-
-Copyright <?php echo date('Y'); ?>
-
-Made by Ian Register > ianregister.com
-
--->
+<!-- Copyright <?php echo date('Y'); ?> -->
+<!-- Made by Ian Register > ianregister.com -->
 
 <!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ --> 
 <!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->

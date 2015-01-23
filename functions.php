@@ -9,32 +9,17 @@
  */
 
 
-
-
 /* ==========================================================================
    Includes
    ========================================================================== */
 
 include_once('includes/custom-posts.php');
 include_once('includes/ajax.php');
-//include_once('includes/cache.php');
+include_once('includes/media.php');
+include_once('includes/login.php');
+include_once('includes/content.php');
 
 
-
-
-/* ==========================================================================
-   Set video embed width and image sizes and jpg quality
-   ========================================================================== */
-
-if ( ! isset( $content_width ) ) { 
-    $content_width = 550;
-}
-
-add_action( 'after_setup_theme', 'beer_start' );
-
-function beer_start() {
-add_theme_support( 'post-thumbnails' );
-}
 
 
 /* Hard code image sizes (true = cropped)
@@ -56,6 +41,7 @@ update_option('large_crop', 0);
 // Home image
 add_image_size( 'home', 960, 320, true );
 add_image_size( 'home@2x', 1920, 640, true );
+
 // Slideshow image
 add_image_size( 'slide', 1020, 680, true );
 add_image_size( 'slide@2x', 2040, 1360, true );
@@ -67,25 +53,6 @@ add_image_size( 'grid@2x', 420, 9999, false );
 // Product & page image
 add_image_size( 'product', 460, 9999, false );
 add_image_size( 'product@2x', 920, 9999, false );
-
-
-/* Set JPG quality
-   -------------------------------------------------------------------------- */
-
-add_filter('jpeg_quality', function($arg) { return 80; });
-
-
-
-/* Set mime type for SVG
-   -------------------------------------------------------------------------- */
-
-function beer_mimetypes( $m ){
-    $m['svg'] = 'image/svg+xml';
-    $m['svgz'] = 'image/svg+xml';
-    return $m;
-}
-add_filter( 'upload_mimes', 'beer_mimetypes' );
-
 
 
 
@@ -136,75 +103,6 @@ add this to header
 
 
 
-
-/* ==========================================================================
-   Login logo, url etc, Dashboard icons
-   ========================================================================== */
-
-// Login logo
-function beer_login_logo() {
-    echo '<style type="text/css">
-    	body.login {background-color:#fff;}
-    	.wp-core-ui .button-primary {background-color: #000;text-transform:uppercase;border-color:#000;box-shadow: inset 0 1px 0 rgba(230, 211, 120, .5),0 1px 0 rgba(0,0,0,.15);transition: all 0.2s linear;}
-    	
-    	.wp-core-ui .button-primary:hover {background-color: #fff;color:#000;border-color:#000;box-shadow: inset 0 1px 0 rgba(244, 170, 149, 0.15),0 1px 0 rgba(244, 170, 149, 0.15);}
-        h1 a{ background-image:url('.get_bloginfo('template_url').'/images/graphics/logo.svg) !important; width:200px!important; height:200px!important; background-size: 200px 200px!important;margin-right:auto!important;margin-left:auto!important; }
-        input[type=checkbox]:checked:before {color: #000;transition:all 0.2s linear}
-        body.login #backtoblog{display:none!important}
-        body.login #nav{margin-top:6px!important}
-    </style>';
-}
-add_action('login_head', 'beer_login_logo');
-
-
-// Change login URL from wordpress to us!
-function beer_login_url(){  
-    return get_home_url();
-}
-add_filter('login_headerurl', 'beer_login_url'); 
-
-
-// Change alt text (ie on hover of logo on login page)
-function beer_login_alt(){  
-    echo get_option('blogname');
-}
-//add_filter('login_alt', 'beer_login_alt');
-
-
-// Change the login page URL hover text
-function beer_login_title(){
-	return get_bloginfo('description'); // changing the title from "Powered by WordPress"
-}
-add_filter('login_headertitle', 'beer_login_title');
-
-
-// Admin logo
-function beer_admin_logo() {
-   echo '<style type="text/css">
-         #wp-admin-bar-wp-logo > .ab-item .ab-icon { background-image: url('.get_bloginfo('template_directory').'/images/graphics/logo.svg) !important; height:20px!important; background-size: 20px 20px!important; background-position:0 -1px; }
-         #wpadminbar.nojs #wp-admin-bar-wp-logo:hover > .ab-item .ab-icon,
-		 #wpadminbar #wp-admin-bar-wp-logo.hover > .ab-item .ab-icon {background-image: url('.get_bloginfo('url').'/wp-includes/images/admin-bar-sprite.png?d=20111130);background-position: 0 -104px;}
-         </style>';
-}
-add_action('admin_head', 'beer_admin_logo');
-
-
-/* Or...... */
-function beer_enqueue_style() {
-	wp_enqueue_style( 'core', 'style.css', false ); 
-}
-
-function beer_enqueue_script() {
-	wp_enqueue_script( 'my-js', 'filename.js', false );
-}
-
-//add_action( 'login_enqueue_scripts', 'beer_enqueue_style', 10 );
-//add_action( 'login_enqueue_scripts', 'beer_enqueue_script', 1 );
-
-
-
-
-
 /* ==========================================================================
    Misc digwp.com functions.php tips
    http://digwp.com/2010/03/wordpress-functions-php-template-custom-functions/
@@ -230,36 +128,6 @@ function beer_admin_footer() {
 	echo '<a href="http://ianregister.com" target="_blank">Web development by Ian Register</a>';
 } 
 add_filter('admin_footer_text', 'beer_admin_footer');
-
-
-
-
-/* ==========================================================================
-   Search improvments
-   ========================================================================== */
-
-// Switches default core markup for search form, comment form, and comments to output valid HTML5
-add_theme_support( 'html5', array( 'search-form' ) );
-
-// Rewrite URL
-function beer_search_url_rewrite_rule() {
-	if ( is_search() && !empty($_GET['s'])) {
-		wp_redirect(home_url("/search/") . urlencode(get_query_var('s')));
-		exit();
-	}	
-}
-add_action('template_redirect', 'beer_search_url_rewrite_rule');
-
-
-// http://bavotasan.com/2010/excluding-pages-from-wordpress-search/
-function beer_search_post_types($query) {
-	if ($query->is_search) {
-	$query->set('post_type', array('post', 'acf' ));
-	}
-	return $query;
-	}
-	
-add_filter('pre_get_posts','beer_search_post_types');
 
 
 
@@ -593,7 +461,6 @@ function clear_opcache( $wp_admin_bar ) {
 function clear_cache() {
 	opcache_reset();
 }
-
 
 
 ?>
