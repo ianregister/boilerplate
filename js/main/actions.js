@@ -97,8 +97,6 @@ loadPageData:function ( page, template ) {
 		submenu();
 		// Show images
 		showImages();
-		// Subscribe form
-		subscribeForm();
 		// Highlight active page
 		activeLink();
 		// Beam me up Scottie (well to top of the page anyway)

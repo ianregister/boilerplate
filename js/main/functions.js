@@ -390,11 +390,6 @@ var a, viewport = {
 var form = $('#beer-contact-form');
 var inputs = $('#beer-contact-form input');
 
-// Validate form polyfill
-form.h5Validate({
-	errorClass:'error'
-});
-
 
 // Bind the submit event to the form
 form.submit(function(event){ 
@@ -524,22 +519,158 @@ function siteTagline() {
 
 
 /* ==========================================================================
-   Load Google Maps better than iFrame baloney
+   Google Maps API
    ========================================================================== */
 
-/*
-$(function(){
-	var mapSettings = {
-	    center: new google.maps.LatLng(-37.781637,144.977474),
-	    zoom: 10,
-	    mapTypeId: google.maps.MapTypeId.ROADMAP
-	};
-	gMap = new google.maps.Map(document.getElementById('maps'), mapSettings);
+function initializeMap() {
+
+	var canvas = $('.map-canvas');
+	var latitude = canvas.attr('data-latitude');
+	var longitude = canvas.attr('data-longitude');
+    var location = new google.maps.LatLng(latitude, longitude);
+
+    var mapOptions = {
+        center: location,
+        zoom: 14,
+        scrollwheel: false,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };        
+
+    var map = new google.maps.Map(document.getElementById("home-map"), mapOptions);
+
+	// Create marker for main map location
 	
-	var kmlLayer = new google.maps.KmlLayer('https://mapsengine.google.com/map/embed?mid=z7zauAVXiKgM.kzb-DXnNaF-0');
-	kmlLayer.setMap(gMap);
-});
+	// TODO	
+	// This needs to display optionally toggled on/off in WP backend
+/*
+    var marker = new google.maps.Marker({
+        position: location,
+        map: map,
+        // Needs be a backend ajax query using admin nonce not frontend nonce
+        //title: siteTitle()
+        title: ''
+    });        
 */
+
+	// Create array to store each "room" location
+	var places = [];
+	
+	// Get all "room" location data
+	$('.map-marker').each( function(){
+		
+		places.push([ 
+			$(this).attr('data-title') ,
+			$(this).attr('data-latitude') ,
+			$(this).attr('data-longitude'),
+			$(this).attr('data-address'),
+			$(this).attr('data-url'),
+			$(this).find('.map-room-features').html()
+		]);
+		
+	});
+
+	// Initialise info window variable explicitly
+	var infoWindow;
+
+	// Go!!
+	setMarkers(map, places);
+	
+	infoWindow = new google.maps.InfoWindow({
+		content: "Loading..."
+	});
+
+	
+
+}
+
+function setMarkers(map, locations) {
+
+	// TODO 
+	// Does z index need be user selectable?
+
+	// Add markers to the map
+	for (var i = 0; i < locations.length; i++) {
+		var location = locations[i];
+		
+		var mapLatLng = new google.maps.LatLng(location[1], location[2]);
+		var marker = new google.maps.Marker({
+		    position: mapLatLng,
+		    map: map,
+		    title: location[0],
+		    html: '<div class="map-info-window"><p class="map-info-window-title">' + location[0] + '</p><p>' + location[3] + '</br><a href="' + location[4] + '">Read More</a></p><span class="single-room-info">' + location[5] + '</span></div>'
+		    //zIndex: location[3]
+		});
+		
+		
+		// Add content to info window
+		google.maps.event.addListener(marker, "click", function () {
+		    infoWindow.setContent(this.html);
+		    infoWindow.open(map, this);
+		});	
+			
+	}
+
+}
+
+
+function maps() {
+
+	if (window.google && google.maps) {
+	    // Map script is already loaded
+	    initializeMap();
+	} else {
+		// Problem!
+	}    
+
+}
+
+
+
+/* ==========================================================================
+   Actions after window resize
+   ========================================================================== */
+
+$(window).resize(_.debounce(function(){
+
+	// Reload Google Map & recentre (TODO deprecated iframe version only?)
+    initializeMap();
+    
+}, 345));
+
+
+
+/* ==========================================================================
+   Sticky / Fixed nav
+   - quick n dirty
+   – redo so that font doesn't get anti-aliased with JS @font-face clash
+   - animate transition
+   
+   Maybe upgrade to this bad boy
+   http://wicky.nillia.ms/headroom.js/
+   ========================================================================== */
+
+function fixedNav() {
+	
+	// Check if we are mobile nav or full nav
+	var mobile = $('.menu-toggle').css('display');
+	
+	var nav = $( 'nav' );
+	var offset = nav.offset();
+	
+	$(window).scroll(function() {
+	
+		if ( ( $('body').scrollTop() > offset.top ) && ( mobile === 'none' ) ){
+		    $( 'header' ).addClass('fixed');
+		} else {
+			$( 'header' ).removeClass('fixed');
+		}    
+	
+	});
+	
+
+}
+
+
 
 
 }); // End jQuery

@@ -1,6 +1,7 @@
 <?php
 /**
  * The default single post content template file.
+ * URL expected similar to /2015/01/post-title-yo
  *
  * @package Beer
  * @subpackage IR
@@ -13,11 +14,8 @@ global $post;
 
 // AJAX'd
 if ( $_REQUEST['fragment'] ) {
-	$fragment = explode('/',$_REQUEST['fragment']);
-	$slug = $_REQUEST['slug'];
-	//$post = get_page_by_path( $slug, OBJECT, 'post' );
-	$id = url_to_postid( $_REQUEST['fragment'] );
-	$post = get_post( $id );
+	$post_id = url_to_postid( $_REQUEST['fragment'] );
+	$post = get_post( $post_id );
 }
 
 // If JS is turned off
