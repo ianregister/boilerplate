@@ -3,7 +3,7 @@ IAN REGISTER WordPress Starter Theme
 
 
 
-##Getting Started
+Getting Started
 ---------------
 
 * `wp-config.php` needs `define( LOCAL, true );` to ensure Browser Sync is functional
@@ -14,7 +14,7 @@ IAN REGISTER WordPress Starter Theme
 
 
 
-##Find & Replace
+Find & Replace
 --------------
 
 * `Beer`				project title
@@ -26,7 +26,7 @@ IAN REGISTER WordPress Starter Theme
 
 
 
-##Structure
+Structure
 ---------
 
 * PHP template files `single.php`, `page.php`, `archive.php` all look for content in the `templates` directory
