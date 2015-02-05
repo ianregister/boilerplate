@@ -19,12 +19,13 @@ npm install
 
 Find & Replace
 --------------
-Beer
-beer_				namespace PHP and JS functions
-whiskey-nonce		nonce in PHP
-WhiskeyNonce		nonce in PHP 
-GinAjax				JS AJAX reference
-TequilaApp			JS app initialise
+
+* Beer				project title
+* beer_				namespace PHP and JS functions
+* whiskey-nonce		nonce in PHP
+* WhiskeyNonce		nonce in PHP 
+* GinAjax			JS AJAX reference
+* TequilaApp		JS app initialise
 
 
 
